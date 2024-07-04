@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv"; 
 
+import "./utils/dbConnect.js"; //db connection
 dotenv.config();
 
 const app = express(); 
@@ -23,7 +24,6 @@ app.use((req, res)=> {
     res.status(404).send("Not Found - Invalid Route");
 });
 
-// Invoke the app's listen
 app.listen(PORT, ()=> {
     console.log(`Server is listening on ${PORT}`);
 });
