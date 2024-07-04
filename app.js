@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv"; 
+import publicRouter from "./controllers/public/index.js"
 
 import "./utils/dbConnect.js"; //db connection
 dotenv.config();
@@ -10,10 +11,9 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json()); 
 
 app.get('/', (req, res)=> {
-    const data = {name: "Server is Running"};
-    res.status(200).json(data); 
+    res.status(200).json({message : "Server is Running"}); 
 });
-
+app.use('/api/auth', publicRouter)
 //Error Handling
 app.use((req, res, next)=> {
     console.error(error);
