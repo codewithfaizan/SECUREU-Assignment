@@ -36,7 +36,6 @@ app.get('/', (req, res) => {
 });
 
 app.use('/auth', publicRouter);
-// app.use(authMiddleware);
 app.use('/api', notesRouter);
 
 //Error Handling

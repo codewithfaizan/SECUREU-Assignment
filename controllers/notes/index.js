@@ -12,15 +12,13 @@ ADD A NOTE
 */
 router.post('/notes', async (req, res) => {
     try {
-        const noteData = new notesModel({...req.body, createdBy : req.session.userId});
-        // noteData.createdBy = req.payload.user_id;
-        console.log(noteData);
-        // const saveNote = await noteData.save();
-        res.status(201).json({ success: true, message: "Note Created Successfully" });
+        const noteData = new notesModel({ ...req.body, createdBy: req.session.userId });
+        const saveNote = await noteData.save();
+        res.status(201).json({ success: true, message: "Note Created Successfully", saveNote });
 
     } catch (error) {
         console.error(error);
-        res.json(500).json({ success: false, message: "Internal Server Error" });
+        res.json(500).json({ success: false, message: error.message });
     }
 });
 
@@ -30,14 +28,15 @@ PRIVATE
 API Endpoint : /api/notes
 GET ALL NOTES
 */
-router.get('/notes',async (req, res) => {
+router.get('/notes', async (req, res) => {
     try {
-        const notesData = await notesModel.find();
+        console.log(req.session.userId)
+        const notesData = await notesModel.find({ createdBy: req.session.userId });
         res.status(200).json({ success: true, message: "All Notes Fetched", notesData });
 
     } catch (error) {
         console.log(error.message)
-        res.status(500).json({ success: false, error: "Internal Server Error" });
+        res.status(500).json({ success: false, error: error.message });
     }
 });
 
@@ -50,20 +49,20 @@ GET A NOTE BY ID
 
 router.get("/notes/:id", async (req, res) => {
     try {
-        const { id } = req.params
-        const noteData = await notesModel.findById(id)
+        const id = req.params.id;
+        const noteData = await notesModel.findOne({ _id: id, createdBy: req.session.userId })
         if (!noteData) {
             return res.status(404).json({ success: false, error: "Note Not Found" })
         };
         res.status(200).json({ success: true, message: "Note Data", noteData });
     } catch (error) {
-        console.log(error.message)
-        res.status(500).json({ success: false, error: "Internal Server Error" })
+        console.log(error)
+        res.status(500).json({ success: false, error: error.message })
     }
 });
 
 /*
-METHOD : GET
+METHOD : DELETE 
 PRIVATE
 API Endpoint : /api/notes/:id
 DELETE A NOTE
@@ -71,15 +70,57 @@ DELETE A NOTE
 router.delete("/notes/:id", async (req, res) => {
     try {
         const { id } = req.params
-        const noteData = await notesModel.findById(id)
+        const noteData = await notesModel.findOneAndDelete({ _id: id, createdBy: req.session.userId })
         if (!noteData) {
             return res.status(404).json({ success: false, error: "Note Not Found" })
         };
-        res.status(200).json({ success: true, message: "Note Data", noteData });
+        res.status(200).json({ success: true, message: "Note Deleted" });
     } catch (error) {
         console.log(error.message)
-        res.status(500).json({ success: false, error: "Internal Server Error" })
+        res.status(500).json({ success: false, error: error.message })
     }
 });
 
+/*
+METHOD : DELETE 
+PRIVATE
+API Endpoint : /api/notes
+DELETE All NOTE
+*/
+router.delete("/notes", async (req, res) => {
+    try {
+
+        const noteData = await notesModel.deleteMany({ createdBy: req.session.userId })
+        if (!noteData) {
+            return res.status(404).json({ success: false, error: "Empty" })
+        };
+        res.status(200).json({ success: true, message: "All Notes Deleted" });
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).json({ success: false, error: error.message })
+    }
+});
+
+
+/*
+METHOD : PUT
+PRIVATE
+API Endpoint : /api/notes/:id
+UPDATE A NOTE BY ID
+*/
+router.put("/notes/:id", authMiddleware, async (req, res) => {
+    try {
+        const updatedNote = await notesModel.findOneAndUpdate({
+            _id: req.params.id, createdBy: req.session.userId
+        },req.body, { new: true });
+        if (updatedNote) {
+            res.status(201).json({ msg: 'Note Update Successfully' });
+        } else {
+            res.status(404).json({ msg: "Note not found" })
+        }
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).json({error: error.message });
+    }
+});
 export default router;
