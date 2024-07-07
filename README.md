@@ -43,9 +43,11 @@ npm start
 ```
 
 ## Features
-### Authentication
-- Session Based Authentication - 
-- User will receive a unique token upon successful login, This token is set to the headers of each request for authentication.
+### Session based Authentication
+- Login: When a user enters their credentials (username and password), the server validates them against a user database or other authentication mechanism.
+- Session Creation: If the credentials are valid, the server creates a session for the user. This session typically involves a unique identifier (session ID) that's stored on the server-side and a corresponding session cookie sent to the client's browser.
+- Subsequent Requests: With the session cookie set in the browser, subsequent requests from the user include this cookie, allowing the server to identify the user based on the session ID and grant access to authorized resources.
+- Session Termination: The session can be terminated in various ways, such as user logout, session expiration, or server restart. The session cookie is typically deleted from the browser when the session ends.
 
 ## API Endpoints 
 <h4>Public</h4>
