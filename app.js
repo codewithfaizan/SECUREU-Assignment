@@ -32,7 +32,7 @@ app.use(session({
 
 
 app.get('/', (req, res) => {
-      res.status(200).redirect('/auth/login');
+      res.status(200).send("SaaS application backend - Notes App");
 });
 
 app.use('/auth', publicRouter);
