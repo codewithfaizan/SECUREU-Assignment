@@ -5,12 +5,12 @@
 A Secure and Scalable SaaS application backend that allows users to register, log in, and manage a
 personal notes system.
 
-<b>Tech Stacks :</b> NodeJs, Express and MongoDB.
-<b>Deployment :</b> https://secureu-assignment.onrender.com/
+<b>Tech Stacks :</b> NodeJs, Express and MongoDB. <br>
+<b>Deployment :</b> https://secureu-assignment.onrender.com/ <br>
 <i>Tags - </i>#node #express #monogdb
 
-To Test the APIs Check the Postman Collection 
 ## POSTMAN Collection
+To Test the APIs Check the Postman Collection 
 <h4>https://documenter.getpostman.com/view/23237073/2sA3e1Bq8k</h4>
 
 ## Installation
@@ -18,8 +18,8 @@ To Test the APIs Check the Postman Collection
 Clone the repository from GitHub repo <a href="https://github.com/codewithfaizan/notes-api">SECUREU-Assignment</a>. <b> Note : This Application requires a .env file setup </b>
 
 ```bash
-git clone git@github.com:oode45/notes-app.git
-cd notes-app
+git clone git@github.com:codewithfaizan/SECUREU-Assignment.git
+cd SECUREU-Assignment/
 ```
 Install the dependencies
 ```bash
@@ -46,9 +46,6 @@ npm start
 ### Authentication
 - Session Based Authentication - 
 - User will receive a unique token upon successful login, This token is set to the headers of each request for authentication.
-
-### Search Functionality
-- Enable users to search for notes based on keywords.
 
 ## API Endpoints 
 <h4>Public</h4>
