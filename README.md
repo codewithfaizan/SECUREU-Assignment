@@ -15,7 +15,7 @@ To Test the APIs Check the Postman Collection
 
 ## Installation
 
-Clone the repository from GitHub repo <a href="https://github.com/codewithfaizan/notes-api">SECUREU-Assignment</a>. <b> Note : This Application requires a .env file setup </b>
+Clone the repository from GitHub repo <a href="https://github.com/codewithfaizan/SECUREU-Assignment">SECUREU-Assignment</a>. <b> Note : This Application requires a .env file setup </b>
 
 ```bash
 git clone git@github.com:codewithfaizan/SECUREU-Assignment.git
